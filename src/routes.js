@@ -10,10 +10,10 @@ function RoutesApp(){
     return(
         <BrowserRouter>
             <Routes>
-                <Route path='/<Transformcalculator>' element={ <Home/>} />
-                <Route path='/<Transformcalculator>' element={ <TransformerForm/>} />
-                <Route path='/<Transformcalculator>' element={ <Result/>} />
-                <Route path='/<Transformcalculator>' element={ <App/>} />
+                <Route path='/' element={ <Home/>} />
+                <Route path='/ensaios' element={ <TransformerForm/>} />
+                <Route path='/resultado' element={ <Result/>} />
+                <Route path='/modelo' element={ <App/>} />
                 <Route path='*' element= { <Erro/> }/>
             </Routes>
         </BrowserRouter>

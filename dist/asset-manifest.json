@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Transformcalculator/static/css/main.6809942d.css",
+    "main.js": "/Transformcalculator/static/js/main.24be1164.js",
+    "static/js/453.759e1985.chunk.js": "/Transformcalculator/static/js/453.759e1985.chunk.js",
+    "index.html": "/Transformcalculator/index.html",
+    "main.6809942d.css.map": "/Transformcalculator/static/css/main.6809942d.css.map",
+    "main.24be1164.js.map": "/Transformcalculator/static/js/main.24be1164.js.map",
+    "453.759e1985.chunk.js.map": "/Transformcalculator/static/js/453.759e1985.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6809942d.css",
+    "static/js/main.24be1164.js"
+  ]
+}
