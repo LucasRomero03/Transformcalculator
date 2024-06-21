@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "composite": true, // Ativa a compilação de projetos em múltiplas etapas (incremental build)
+    "skipLibCheck": true, // Pula a verificação de arquivos de biblioteca externa
+    "module": "ESNext", // Usa ESNext para suporte a módulos modernos
+    "moduleResolution": "node", // Resolve módulos como pacotes node
+    "allowSyntheticDefaultImports": true, // Permite importações sintéticas padrão
+    "strict": true, // Habilita configurações estritas de TypeScript
+    "forceConsistentCasingInFileNames": true // Força consistência nos nomes de arquivos
+    // outras opções específicas do Node.js, se necessário
+  },
+  "include": [
+    "vite.config.ts"
+  ]
+}
