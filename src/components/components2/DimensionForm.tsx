@@ -131,7 +131,20 @@ const DimensionForm: React.FC<DimensionFormProps> = ({
             value={NumEspirasSecundario.toString()}
           />
           <ResultField
-            label="Peso do Núcleo"
+           label="Peso do Cobre"
+           value={(parseFloat(PesoCU)).toFixed(2)}
+           unit="kg"
+           className="bg-opacity-50 bg-gray-500"
+          />
+         
+          <ResultField
+            label="Peso do Núcleo de Ferro."
+            value={(parseFloat(PesoFE)).toFixed(2)}
+            unit="kg"
+            
+          />
+           <ResultField
+            label="Peso Total da Peça"
             value={(parseFloat(PesoFE) + parseFloat(PesoCU)).toFixed(2)}
             unit="kg"
             className="bg-opacity-50 bg-gray-500"
