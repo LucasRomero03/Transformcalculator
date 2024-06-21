@@ -8,7 +8,6 @@ import { Header } from "./components2/Header";
 import { DiagramaView } from "./components2/views/DiagramaView";
 import InfoGrid from "../components/components2/infoGrid";
 
-
 export interface Dimensions {
   a: number;
   z_thickness: number;
@@ -25,13 +24,10 @@ interface Data {
 
 const App: React.FC = () => {
   const [dimensions, setDimensions] = useState<Dimensions>();
-
   const [data, setData] = useState<Data>();
-
   const [partDimensions, setPartDimensions] = useState<string>(
     "Nenhuma peça selecionada"
   );
-
   const [view, setView] = useState<"Modelo 3D" | "Diagrama">("Modelo 3D");
 
   return (
@@ -43,16 +39,17 @@ const App: React.FC = () => {
           onDimensionsChange={(dims) => setDimensions(dims)}
           onCalculate={(a) => setData(a)}
         />
-        {view === "Modelo 3D" ? (
+        {view === "Modelo 3D" && dimensions ? (
           <>
             <Canvas style={{ height: "100vh", width: "100vw" }}>
               <ambientLight />
               <pointLight position={[10, 10, 10]} />
-              {dimensions && (
+              {data && (
                 <E
                   a={dimensions.a}
                   depth={dimensions.z_thickness}
                   setPartDimensions={setPartDimensions}
+                  chargePotency={data.potenciaCarga}
                 />
               )}
               <FakeGrid />

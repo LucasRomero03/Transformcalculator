@@ -211,6 +211,22 @@ const laminas = [
         pesoPorCM: 1.053,
         comprimentoNucleo: 5,
     },
+    
+];
+const laminas1 = [
+   
+    {
+        nome: "Lâmina Comprida 5",
+        secaoJanela: 2400,
+        pesoPorCM: 1.000,
+        comprimentoNucleo: 4,
+    },
+    {
+        nome: "Lâmina comprida 6",
+        secaoJanela: 3750,
+        pesoPorCM: 1.580,
+        comprimentoNucleo: 5,
+    },
 ];
 
 function getDensity(chargePotency: number): number {
@@ -238,41 +254,88 @@ export default function calculateValues({
     const S1 = I1 / d; // Seção do condutor primário (mm^2)
     const S2 = I2 / d; // Seção do condutor secundário (mm^2)
 
-    const Sm = 7.5 * Math.sqrt(chargePotency / transformerFrequency); // cm^2
-    const Sg = 1.1 * Sm; // cm^2
+    // Verifica se a potência de carga é maior que 800
+    let Sm: number, Sg: number, Esp_volt: number, z_thickness: number, Np: number, Ns: number, Scu: number;
+    let tipoLamina: any, nomeTipoLamina: string, a: number, pi: number, lm: number, peso_lamina: number, Pfe: number, Pcu: number, Pcu_kg: number, qt_laminas: number;
+    let BitolaCaboPrimario: any, BitolaCaboSecundario: any;
+    if (chargePotency > 800) {
+        // Ajustes para potências maiores que 800
+        Sm = 6.5 * Math.sqrt(chargePotency / transformerFrequency); // cm^2
+        Sg = 1.1 * Sm; // cm^2
+        Esp_volt = 40 / Sm; // Exemplo de ajuste
 
-    const z_thickness = Sg / 4;
+       
 
-    const Esp_volt = 40 / Sm;
+        Np = parseInt((0.98*Esp_volt * primaryTension).toFixed(0));
+        Ns = parseInt((Esp_volt * secondaryTension * 1.1).toFixed(0)); // acrescidas de 10%
+     
+        Scu = Np * S1 + Ns * S2; // mm^2
 
-    const Np = parseInt((Esp_volt * primaryTension).toFixed(0));
-    const Ns = parseInt((Esp_volt * secondaryTension * 1.1).toFixed(0)); // acrescidas de 10%
+        tipoLamina = laminas1.find(({ secaoJanela }) => {
+            return secaoJanela / Scu > 3;
+        });
 
-    const Scu = Np * S1 + Ns * S2; // mm^2
+        nomeTipoLamina = tipoLamina
+            ? tipoLamina.nome
+            : "Não há tipo de Lâmina para estes valores";
 
-    const tipoLamina = laminas.find(({ secaoJanela }) => {
-        return secaoJanela / Scu > 3;
-    });
+        a = tipoLamina?.comprimentoNucleo ?? 5; // cm
 
-    const nomeTipoLamina = tipoLamina
-        ? tipoLamina.nome
-        : "Não há tipo de Lâmina para estes valores";
+        
+        z_thickness = Sg / a;
+    
+        pi = Math.PI;
+        lm = 2 * a + 2 * z_thickness + 0.5 * a * pi; // cm
 
-    const a = tipoLamina?.comprimentoNucleo ?? 5; // cm
-    const pi = Math.PI;
-    const lm = 2 * a + 2 * z_thickness + 0.5 * a * pi; // cm
+        peso_lamina = tipoLamina?.pesoPorCM ?? 1; // kg/cm
+        Pfe = peso_lamina * z_thickness;
 
-    const peso_lamina = tipoLamina?.pesoPorCM ?? 1; // kg/cm
-    const Pfe = peso_lamina * (tipoLamina?.comprimentoNucleo ?? 1);
+        Pcu = (Scu / 100) * lm * 9; // g -> 1 g = 0.001 kg
+        Pcu_kg = Pcu / 1000; // kg
 
-    const Pcu = (Scu / 100) * lm * 9; // g -> 1 g = 0.001 kg
-    const Pcu_kg = Pcu / 1000; // kg
+        
+        qt_laminas = Pfe / peso_lamina;
 
-    const area_nucleo_central = Math.sqrt(Sg);
-    const qt_laminas = area_nucleo_central / peso_lamina
+        BitolaCaboPrimario = bitolas.filter(bitola => bitola.secao >= S1).sort((a, b) => a.secao - b.secao)[0];
+        BitolaCaboSecundario = bitolas.filter(bitola => bitola.secao >= S2).sort((a, b) => a.secao - b.secao)[0];
+    } else {
+        // Cálculos padrão
+        Sm = 7.5 * Math.sqrt(chargePotency / transformerFrequency); // cm^2
+        Sg = 1.1 * Sm; // cm^2
+        Esp_volt = 40 / Sm;
 
-    const BitolaCaboPrimario = bitolas.filter(bitola => bitola.secao >= S1).sort((a, b) => a.secao - b.secao)[0]
-    const BitolaCaboSecundario = bitolas.filter(bitola => bitola.secao >= S2).sort((a, b) => a.secao - b.secao)[0]
+        
+
+        Np = parseInt((Esp_volt * primaryTension).toFixed(0));
+        Ns = parseInt((Esp_volt * secondaryTension * 1.1).toFixed(0)); // acrescidas de 10%
+    
+        Scu = Np * S1 + Ns * S2; // mm^2
+
+        tipoLamina = laminas.find(({ secaoJanela }) => {
+            return secaoJanela / Scu > 3;
+        });
+
+        nomeTipoLamina = tipoLamina
+            ? tipoLamina.nome
+            : "Não há tipo de Lâmina para estes valores";
+
+        a = tipoLamina?.comprimentoNucleo ?? 5; // cm
+        z_thickness = Sg / a;
+        pi = Math.PI;
+        lm = 2 * a + 2 * z_thickness + 0.5 * a * pi; // cm
+
+        peso_lamina = tipoLamina?.pesoPorCM ?? 1; // kg/cm
+        Pfe = peso_lamina *z_thickness;
+
+        Pcu = (Scu / 100) * lm * 9; // g -> 1 g = 0.001 kg
+        Pcu_kg = Pcu / 1000; // kg
+
+       
+        qt_laminas = Pfe / peso_lamina;
+
+        BitolaCaboPrimario = bitolas.filter(bitola => bitola.secao >= S1).sort((a, b) => a.secao - b.secao)[0];
+        BitolaCaboSecundario = bitolas.filter(bitola => bitola.secao >= S2).sort((a, b) => a.secao - b.secao)[0];
+    }
 
     return {
         NumEspirasPrimario: Np,
