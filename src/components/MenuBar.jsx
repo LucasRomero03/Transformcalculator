@@ -12,7 +12,7 @@ const MenuBar = () => {
             style={{ height: 40, marginRight: 10 }}
           />
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Transform
+            
           </Typography>
         </Box>
         <Box>
@@ -22,11 +22,11 @@ const MenuBar = () => {
           <Button color="inherit" href="/modelo">
             Modelo 3D
           </Button>
-          <Button color="inherit" href="/ensaios">
-            Ensaios
+          <Button color="inherit" href="/parametros">
+          Parâmetros
           </Button>
-          <Button color="inherit" href="/diagramas">
-            Diagrama Fasorial
+          <Button color="inherit" href="/calculate-regulacao">
+          Calcular Regulação
           </Button>
         </Box>
       </Toolbar>
