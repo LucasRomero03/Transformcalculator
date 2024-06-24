@@ -319,7 +319,7 @@ function Parametros() {
             variant="contained"
             color="primary"
             fullWidth
-            style={{ backgroundColor: "#274e5e" }}
+            style={{ backgroundColor: "#282c34" }}
           >
             Calcular
           </Button>

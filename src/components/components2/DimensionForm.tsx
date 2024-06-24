@@ -67,7 +67,7 @@ const DimensionForm: React.FC<DimensionFormProps> = ({
   }, []);
 
   return (
-    <div className="bg-slate-600 text-white">
+    <div className="bg-custom-color1 text-white">
       <div className="flex justify-end w-full">
         <AlignJustify className="sticky w-fit px-2 py-1 cursor-pointer" size={32} onClick={() => setOpen(!isOpen)} />
       </div>
@@ -105,7 +105,7 @@ const DimensionForm: React.FC<DimensionFormProps> = ({
           </div>
         </form>
 
-        <div className="bg-blue-500 text-white w-[270px]">
+        <div className="bg-custom-color text-white w-[270px]">
           <Title title="Resultados" svg={<NotebookText />} />
 
           <ResultField

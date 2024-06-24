@@ -15,7 +15,7 @@
 .home h1 {
     font-size: 35px;
     margin-bottom: 10px;
-    color: #274e5e;
+    color: #282c34;
 }
 
 .home h2 {
@@ -31,7 +31,7 @@
 }
 
 .home a {
-    color: #274e5e;
+    color: #282c34;
     text-decoration: none;
     font-weight: bold;
 }

@@ -91,7 +91,7 @@ function ParametrosResults() {
           variant="contained"
           color="primary"
           fullWidth
-          style={{ backgroundColor: "#274e5e" }}
+          style={{ backgroundColor: "#282c34" }}
           onClick={goBack} 
         >
           Voltar

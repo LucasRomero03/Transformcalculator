@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 
 const MenuBar = () => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#274e5e" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#282c34" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box display="flex" alignItems="center">
           <img

@@ -18,7 +18,7 @@ export default function InfoGrid({ dimensions, partDimensions }: Props) {
     }, [partDimensions]);
 
     return (
-        <div className="absolute right-0 bg-gray-500 px-2 py-1 rounded text-white font-semibold z-10">
+        <div className="absolute right-0 bg-custom-color1 px-2 py-1 rounded text-white font-semibold z-10">
             <button className={`relative top-0 left-0 m-1 ${isOpen ? 'p-0.5 hover:text-red-500' : ''}`} onClick={() => setOpen(!isOpen)}>
                 {isOpen
                     ? <X size={16} />
